@@ -1,8 +1,11 @@
 import * as path from "path";
 import * as express from "express";
 import apiRouter from "./routes";
+import * as favIcon from "serve-favicon";
 
 const app = express();
+
+app.use(favIcon(path.join(__dirname, "../public/favicon.ico")));
 
 let p = path.join(__dirname, "../public");
 console.log(p);
