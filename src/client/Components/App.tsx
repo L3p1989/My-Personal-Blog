@@ -5,6 +5,7 @@ import "../scss/app";
 
 import NavBar from "./NavBar";
 import HomePage from "./HomePage";
+import BlogsPage from "./BlogsPage";
 
 export default class App extends React.Component<IAppProps, IAppState> {
   constructor(props: IAppProps) {
@@ -21,7 +22,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
             <NavBar />
             <Switch>
               <Route exact path="/" component={HomePage} />
-              <Route exact path="/blogs" />
+              <Route exact path="/blogs" component={BlogsPage} />
               <Route path="/blogs/:id" />
             </Switch>
           </>
