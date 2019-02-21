@@ -7,7 +7,11 @@ class NavBar extends Component {
       <div className="nav-container">
         <div className="bw-gradient" />
         <Link className="link" to="/">
-          <img src="" alt="" className="logo" />
+          <img
+            src="https://cdn.discordapp.com/attachments/501423134335828000/545826863130345502/1080_namira.png"
+            alt=""
+            className="logo"
+          />
         </Link>
         <div className="navbar">
           <div className="header">
@@ -23,6 +27,7 @@ class NavBar extends Component {
               </ul>
             </nav>
           </div>
+          <h1 className="brand-quote">Slithr</h1>
         </div>
       </div>
     );
