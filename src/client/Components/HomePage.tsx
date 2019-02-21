@@ -14,8 +14,7 @@ export default class HomePage extends React.Component<
     return (
       <div className="container hp-container">
         <h1>My Personal blogs</h1>
-        <h3>Slithr is the place I like to post my blogs.</h3>
-        <p>Thanks for stopping by!</p>
+        <h3>Thanks for stopping by my Slithr page!</h3>
       </div>
     );
   }
