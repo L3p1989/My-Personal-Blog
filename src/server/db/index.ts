@@ -2,6 +2,7 @@ import * as mysql from "mysql";
 import config from "../config";
 
 import blogs from "./blogs";
+import authors from "./authors";
 
 export const Connection = mysql.createConnection(config.mysql);
 
@@ -10,5 +11,6 @@ Connection.connect(err => {
 });
 
 export default {
-  blogs
+  blogs,
+  authors
 };
