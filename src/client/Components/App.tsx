@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "../scss/app";
 
 import NavBar from "./NavBar";
+import HomePage from "./HomePage";
 
 export default class App extends React.Component<IAppProps, IAppState> {
   constructor(props: IAppProps) {
@@ -19,7 +20,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
           <>
             <NavBar />
             <Switch>
-              <Route exact path="/" />
+              <Route exact path="/" component={HomePage} />
               <Route exact path="/blogs" />
               <Route path="/blogs/:id" />
             </Switch>
