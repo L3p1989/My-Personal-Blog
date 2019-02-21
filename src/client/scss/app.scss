@@ -49,6 +49,11 @@ nav > ul > li > a > .link {
   padding: 0 20px 0 20px;
 }
 
+.link {
+  text-decoration: none;
+  color: #ffffff;
+}
+
 nav > ul {
   position: absolute;
   top: 0;
@@ -91,4 +96,20 @@ nav > ul {
   font-family: serif;
   color: #fff;
   text-align: center;
+}
+
+.blogs-container {
+  color: white;
+  text-align: center;
+  max-width: 100%;
+}
+
+.blog-card {
+  position: inherit;
+  display: inline-flex;
+  width: 15%;
+  border: solid;
+  color: white;
+  background: none;
+  text-decoration: none;
 }
