@@ -1,6 +1,8 @@
-import React from 'react';
-import { render } from 'react-dom';
+import React from "react";
+import { render } from "react-dom";
 
-import App from './App';
+import "bootstrap";
+
+import App from "./Components/App";
 
 render(<App />, document.getElementById("root"));
