@@ -9,6 +9,11 @@ export default class BlogsPage extends React.Component<
     super(props);
 
     this.state = {
+      blog: {
+        authorid: "",
+        title: "",
+        content: ""
+      },
       authors: []
     };
   }
@@ -30,6 +35,13 @@ export default class BlogsPage extends React.Component<
                 type="text"
                 className="form-control"
                 placeholder="Who are you?"
+                onChange={e =>
+                  this.setState({
+                    blog: {
+                      authorid: e.target.value
+                    }
+                  })
+                }
               />
             </div>
             <div className="form-group">
@@ -38,6 +50,13 @@ export default class BlogsPage extends React.Component<
                 type="text"
                 className="form-control"
                 placeholder="What's the title of your blog?"
+                onChange={e =>
+                  this.setState({
+                    blog: {
+                      title: e.target.value
+                    }
+                  })
+                }
               />
             </div>
             <div className="form-group">
@@ -46,6 +65,13 @@ export default class BlogsPage extends React.Component<
                 className="form-control"
                 rows={5}
                 placeholder="Write your blog here"
+                onChange={e =>
+                  this.setState({
+                    blog: {
+                      content: e.target.value
+                    }
+                  })
+                }
               />
             </div>
             <button className="btn save-btn">Save</button>
@@ -62,6 +88,7 @@ export default class BlogsPage extends React.Component<
 interface IBlogsPageProps {}
 
 interface IBlogsPageState {
+  blog: any;
   authors: Array<{
     id: string;
     name: string;
