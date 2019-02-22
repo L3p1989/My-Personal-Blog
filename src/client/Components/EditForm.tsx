@@ -1,4 +1,5 @@
 import * as React from "react";
+import { BrowserRouter as Router, Link } from "react-router-dom";
 
 export default class EditForm extends React.Component<
   IEditFormProps,
@@ -8,14 +9,29 @@ export default class EditForm extends React.Component<
     super(props);
 
     this.state = {
-      blog: {
-        authorid: 1,
-        title: "",
-        content: "",
-        _created: ""
-      },
+      blog: {},
+      authorid: 1,
+      title: "",
+      content: "",
       authors: []
     };
+  }
+
+  async handleEdit() {
+    event.preventDefault();
+    let newBlog = {
+      authorid: this.state.authorid,
+      title: this.state.title,
+      content: this.state.content
+    };
+    await fetch(`/api/blogs/${this.props.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newBlog)
+    });
+    this.props.history.push(`/blogs`);
   }
 
   async componentWillMount() {
@@ -24,6 +40,7 @@ export default class EditForm extends React.Component<
     let a = await fetch("/api/authors");
     let authors = await a.json();
     this.setState({ blog, authors });
+    this.setState({ title: blog.title, content: blog.content });
   }
 
   render() {
@@ -38,12 +55,10 @@ export default class EditForm extends React.Component<
               placeholder="What's the title of your blog?"
               onChange={e =>
                 this.setState({
-                  blog: {
-                    title: e.target.value
-                  }
+                  title: e.target.value
                 })
               }
-              value={this.state.blog.title}
+              value={this.state.title}
             />
           </div>
           <div className="form-group">
@@ -53,15 +68,19 @@ export default class EditForm extends React.Component<
               rows={5}
               onChange={e =>
                 this.setState({
-                  blog: {
-                    content: e.target.value
-                  }
+                  content: e.target.value
                 })
               }
-              value={this.state.blog.content}
+              value={this.state.content}
             />
           </div>
-          <button className="btn save-btn">Save</button>
+          <Link
+            to={`/api/blogs`}
+            className="btn save-btn"
+            onClick={() => this.handleEdit()}
+          >
+            Save
+          </Link>
         </form>
       </>
     );
@@ -70,10 +89,14 @@ export default class EditForm extends React.Component<
 
 interface IEditFormProps {
   id: string;
+  history: any;
 }
 
 interface IEditFormState {
   blog: any;
+  authorid: number;
+  title: string;
+  content: string;
   authors: Array<{
     id: string;
     name: string;
