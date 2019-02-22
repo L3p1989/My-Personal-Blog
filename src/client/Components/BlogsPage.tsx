@@ -27,6 +27,11 @@ export default class BlogsPage extends React.Component<
       <>
         <div className="container blogs-container">
           <h1>Blogs</h1>
+          <p>
+            <Link to="/new-blog" className="btn add-blog">
+              New Blog
+            </Link>
+          </p>
           {this.state.blogs.map(blog => {
             return (
               <div className="card text-center m-2 rounded blog-card">
@@ -44,11 +49,6 @@ export default class BlogsPage extends React.Component<
               </div>
             );
           })}
-          <p>
-            <Link to="/new-blog" className="btn add-blog">
-              New Blog
-            </Link>
-          </p>
         </div>
       </>
     );
