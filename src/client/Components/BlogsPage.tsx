@@ -34,11 +34,18 @@ export default class BlogsPage extends React.Component<
           </p>
           {this.state.blogs.map(blog => {
             return (
-              <div className="card text-center m-2 rounded blog-card">
+              <div
+                key={blog.id}
+                className="card text-center m-2 rounded blog-card"
+              >
                 <div className="card-body">
                   {this.state.authors.map(author => {
                     if (blog.authorid === author.id)
-                      return <h2 className="card-title">{author.name}</h2>;
+                      return (
+                        <h2 key={author.id} className="card-title">
+                          {author.name}
+                        </h2>
+                      );
                   })}
                   <p className="card-text">
                     <Link to={`/blogs/${blog.id}`} className="blog-btn link">
