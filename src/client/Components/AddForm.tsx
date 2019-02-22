@@ -18,7 +18,7 @@ export default class BlogsPage extends React.Component<
     };
   }
 
-  async componentWillMount() {
+  async componentDidMount() {
     let a = await fetch("/api/authors");
     let authors = await a.json();
     this.setState({ authors });

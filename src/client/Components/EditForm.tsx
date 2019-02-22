@@ -19,7 +19,7 @@ export default class EditForm extends React.Component<
     };
   }
 
-  async componentWillMount() {
+  async componentDidMount() {
     let r = await fetch(`/api/blogs/${this.props.id}`);
     let blog = await r.json();
     let a = await fetch("/api/authors");

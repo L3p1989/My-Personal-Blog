@@ -31,7 +31,7 @@ export default class BlogPage extends React.Component<IBlogProps, IBlogState> {
     }));
   }
 
-  async componentWillMount() {
+  async componentDidMount() {
     let r = await fetch(`/api/blogs/${this.props.match.params.id}`);
     let blog = await r.json();
     this.setState({ blog });
