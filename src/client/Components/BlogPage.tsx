@@ -31,6 +31,18 @@ export default class BlogPage extends React.Component<IBlogProps, IBlogState> {
     }));
   }
 
+  async handleDelete() {
+    event.preventDefault();
+    await fetch(`/api/blogs/${this.props.match.params.id}`, {
+      method: "Delete",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(this.state.blog)
+    });
+    this.props.history.push("/blogs");
+  }
+
   async componentDidMount() {
     let r = await fetch(`/api/blogs/${this.props.match.params.id}`);
     let blog = await r.json();
@@ -55,7 +67,10 @@ export default class BlogPage extends React.Component<IBlogProps, IBlogState> {
               className="container edit-container rounded"
               style={{ display: this.state.isShowingEdit ? "inherit" : "none" }}
             >
-              <EditForm id={this.props.match.params.id} />
+              <EditForm
+                id={this.props.match.params.id}
+                history={this.props.history}
+              />
             </div>
             <div
               style={{
@@ -64,7 +79,12 @@ export default class BlogPage extends React.Component<IBlogProps, IBlogState> {
               className="delete-confirm"
             >
               <p>Are you sure you want to delete this blog?</p>
-              <button className="btn save-btn">Yes</button>
+              <button
+                className="btn save-btn"
+                onClick={() => this.handleDelete()}
+              >
+                Yes
+              </button>
               <button className="btn cancel-btn" onClick={this.toggleDelete}>
                 No
               </button>
