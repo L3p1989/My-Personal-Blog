@@ -44,6 +44,9 @@ export default class BlogsPage extends React.Component<
               </div>
             );
           })}
+          <p>
+            <button className="btn add-blog">New Blog</button>
+          </p>
         </div>
       </>
     );
@@ -54,14 +57,13 @@ interface IBlogsPageProps {}
 
 interface IBlogsPageState {
   blogs: Array<{
-    id: number;
-    authorid: number;
+    id: string;
+    authorid: string;
     title: string;
     content: string;
   }>;
   authors: Array<{
-    id: number;
+    id: string;
     name: string;
-    email: string;
   }>;
 }
