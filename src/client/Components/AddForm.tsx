@@ -27,7 +27,7 @@ export default class BlogsPage extends React.Component<
     let newBlog = {
       authorid: this.state.authorid,
       title: this.state.title,
-      content: this.state.title
+      content: this.state.content
     };
     await fetch("api/blogs", {
       method: "POST",
