@@ -9,11 +9,9 @@ export default class BlogsPage extends React.Component<
     super(props);
 
     this.state = {
-      blog: {
-        authorid: "",
-        title: "",
-        content: ""
-      },
+      authorid: 1,
+      title: "",
+      content: "",
       authors: []
     };
   }
@@ -24,26 +22,28 @@ export default class BlogsPage extends React.Component<
     this.setState({ authors });
   }
 
+  async handleAdd() {
+    event.preventDefault();
+    let newBlog = {
+      authorid: this.state.authorid,
+      title: this.state.title,
+      content: this.state.title
+    };
+    await fetch("api/blogs", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newBlog)
+    });
+    this.props.history.push("/blogs");
+  }
+
   render() {
     return (
       <>
         <div className="container addform-container">
           <form>
-            <div className="form-group">
-              <label>Name</label>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Who are you?"
-                onChange={e =>
-                  this.setState({
-                    blog: {
-                      authorid: e.target.value
-                    }
-                  })
-                }
-              />
-            </div>
             <div className="form-group">
               <label>Title</label>
               <input
@@ -52,9 +52,7 @@ export default class BlogsPage extends React.Component<
                 placeholder="What's the title of your blog?"
                 onChange={e =>
                   this.setState({
-                    blog: {
-                      title: e.target.value
-                    }
+                    title: e.target.value
                   })
                 }
               />
@@ -67,14 +65,14 @@ export default class BlogsPage extends React.Component<
                 placeholder="Write your blog here"
                 onChange={e =>
                   this.setState({
-                    blog: {
-                      content: e.target.value
-                    }
+                    content: e.target.value
                   })
                 }
               />
             </div>
-            <button className="btn save-btn">Hisss!</button>
+            <button className="btn save-btn" onClick={() => this.handleAdd()}>
+              Hisss!
+            </button>
             <Link to="/blogs" className="btn cancel-btn">
               Cancel
             </Link>
@@ -85,10 +83,14 @@ export default class BlogsPage extends React.Component<
   }
 }
 
-interface IBlogsPageProps {}
+interface IBlogsPageProps {
+  history: any;
+}
 
 interface IBlogsPageState {
-  blog: any;
+  authorid: number;
+  title: string;
+  content: string;
   authors: Array<{
     id: string;
     name: string;
