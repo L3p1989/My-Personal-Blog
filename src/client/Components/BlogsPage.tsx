@@ -45,7 +45,9 @@ export default class BlogsPage extends React.Component<
             );
           })}
           <p>
-            <button className="btn add-blog">New Blog</button>
+            <Link to="/new-blog" className="btn add-blog">
+              New Blog
+            </Link>
           </p>
         </div>
       </>
