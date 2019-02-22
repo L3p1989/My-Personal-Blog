@@ -9,8 +9,7 @@ export default class EditForm extends React.Component<
 
     this.state = {
       blog: {
-        id: "",
-        authorid: "",
+        authorid: 1,
         title: "",
         content: "",
         _created: ""
@@ -19,7 +18,7 @@ export default class EditForm extends React.Component<
     };
   }
 
-  async componentDidMount() {
+  async componentWillMount() {
     let r = await fetch(`/api/blogs/${this.props.id}`);
     let blog = await r.json();
     let a = await fetch("/api/authors");
@@ -31,22 +30,6 @@ export default class EditForm extends React.Component<
     return (
       <>
         <form>
-          <div className="form-group">
-            <label>Name</label>
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Who are you?"
-              onChange={e =>
-                this.setState({
-                  blog: {
-                    authorid: e.target.value
-                  }
-                })
-              }
-              value={this.state.blog.authorid}
-            />
-          </div>
           <div className="form-group">
             <label>Title</label>
             <input
