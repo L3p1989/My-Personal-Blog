@@ -44,7 +44,7 @@ export default class BlogPage extends React.Component<IBlogProps, IBlogState> {
           <h1 className="author-name">{this.state.blog.authorid}</h1>
           <h2 className="blog-title">{this.state.blog.title}</h2>
           <p className="blog-content">"{this.state.blog.content}"</p>
-          <p>
+          <div>
             <button className="btn edit-blog" onClick={this.toggleEdit}>
               Edit
             </button>
@@ -69,7 +69,7 @@ export default class BlogPage extends React.Component<IBlogProps, IBlogState> {
                 No
               </button>
             </div>
-          </p>
+          </div>
         </div>
       </>
     );
