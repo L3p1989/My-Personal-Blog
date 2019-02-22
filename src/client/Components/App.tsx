@@ -7,6 +7,7 @@ import NavBar from "./NavBar";
 import HomePage from "./HomePage";
 import BlogsPage from "./BlogsPage";
 import BlogPage from "./BlogPage";
+import AddForm from "./AddForm";
 
 export default class App extends React.Component<IAppProps, IAppState> {
   constructor(props: IAppProps) {
@@ -25,6 +26,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
               <Route exact path="/" component={HomePage} />
               <Route exact path="/blogs" component={BlogsPage} />
               <Route path="/blogs/:id" component={BlogPage} />
+              <Route path="/new-blog" component={AddForm} />
             </Switch>
           </>
         </Router>
