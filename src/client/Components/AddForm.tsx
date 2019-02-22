@@ -74,7 +74,7 @@ export default class BlogsPage extends React.Component<
                 }
               />
             </div>
-            <button className="btn save-btn">Save</button>
+            <button className="btn save-btn">Hisss!</button>
             <Link to="/blogs" className="btn cancel-btn">
               Cancel
             </Link>
