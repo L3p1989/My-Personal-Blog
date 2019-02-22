@@ -57,6 +57,18 @@ export default class BlogPage extends React.Component<IBlogProps, IBlogState> {
             >
               <EditForm id={this.props.match.params.id} />
             </div>
+            <div
+              style={{
+                display: this.state.isShowingDelete ? "inherit" : "none"
+              }}
+              className="delete-confirm"
+            >
+              <p>Are you sure you want to delete this blog?</p>
+              <button className="btn save-btn">Yes</button>
+              <button className="btn cancel-btn" onClick={this.toggleDelete}>
+                No
+              </button>
+            </div>
           </p>
         </div>
       </>
