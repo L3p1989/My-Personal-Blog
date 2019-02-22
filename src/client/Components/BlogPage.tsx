@@ -1,13 +1,34 @@
 import * as React from "react";
 import { RouteComponentProps } from "react-router-dom";
+import EditForm from "./EditForm";
 
 export default class BlogPage extends React.Component<IBlogProps, IBlogState> {
   constructor(props: IBlogProps) {
     super(props);
 
     this.state = {
-      blog: {}
+      blog: {},
+      isShowingEdit: false,
+      isShowingDelete: false
     };
+
+    this.toggleEdit = this.toggleEdit.bind(this);
+
+    this.toggleDelete = this.toggleDelete.bind(this);
+  }
+
+  toggleEdit() {
+    this.setState(prevState => ({
+      isShowingEdit: !prevState.isShowingEdit,
+      isShowingDelete: false
+    }));
+  }
+
+  toggleDelete() {
+    this.setState(prevState => ({
+      isShowingDelete: !prevState.isShowingDelete,
+      isShowingEdit: false
+    }));
   }
 
   async componentWillMount() {
@@ -24,8 +45,18 @@ export default class BlogPage extends React.Component<IBlogProps, IBlogState> {
           <h2 className="blog-title">{this.state.blog.title}</h2>
           <p className="blog-content">"{this.state.blog.content}"</p>
           <p>
-            <button className="btn edit-blog">Edit</button>
-            <button className="btn delete-blog">Delete</button>
+            <button className="btn edit-blog" onClick={this.toggleEdit}>
+              Edit
+            </button>
+            <button className="btn delete-blog" onClick={this.toggleDelete}>
+              Delete
+            </button>
+            <div
+              className="container edit-container rounded"
+              style={{ display: this.state.isShowingEdit ? "inherit" : "none" }}
+            >
+              <EditForm id={this.props.match.params.id} />
+            </div>
           </p>
         </div>
       </>
@@ -37,4 +68,6 @@ interface IBlogProps extends RouteComponentProps<{ id: string }> {}
 
 interface IBlogState {
   blog: any;
+  isShowingEdit: boolean;
+  isShowingDelete: boolean;
 }
