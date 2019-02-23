@@ -1,2 +1,2 @@
 node_modules
-src/server/config
+src/server/config/development.ts
