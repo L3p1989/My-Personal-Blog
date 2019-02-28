@@ -1,17 +1,8 @@
-import { Connection } from "../index";
+import { Connection, Query } from "../index";
 
-export const all = async () => {
-  return new Promise((resolve, reject) => {
-    Connection.query("select * from blogs;", (err, res) => {
-      if (err) {
-        return reject(err);
-      }
-      resolve(res);
-    });
-  });
-};
+const all = async () => Query(`select * from blogs`);
 
-export const one = async (id: number) => {
+const one = async (id: number) => {
   return new Promise((resolve, reject) => {
     Connection.query(
       `select b.*, a.name as authorid from blogs b join authors a on b.authorid = a.id where b.id = ?`,
@@ -26,36 +17,13 @@ export const one = async (id: number) => {
   });
 };
 
-export const insert = async (values: any) => {
-  return new Promise((resolve, reject) => {
-    Connection.query(`insert into Blogs set ?`, values, (err, res) => {
-      if (err) reject(err);
-      resolve(res);
-    });
-  });
-};
+const insert = async (values: any) => Query(`insert into Blogs set ?`, values);
 
-export const deleteBlog = async (id: number) => {
-  return new Promise((resolve, reject) => {
-    Connection.query(`delete from Blogs where id = ?`, id, (err, res) => {
-      if (err) reject(err);
-      resolve(res);
-    });
-  });
-};
+const deleteBlog = async (id: number) =>
+  Query(`delete from Blogs where id = ${id}`);
 
-export const editBlog = async (values: any, id: number) => {
-  return new Promise((resolve, reject) => {
-    Connection.query(
-      `update Blogs set ${values} where id = ?`,
-      id,
-      (err, res) => {
-        if (err) reject(err);
-        resolve(res);
-      }
-    );
-  });
-};
+const editBlog = async (values: any, id: number) =>
+  Query(`update Blogs set ${values} where id = ${id}`);
 
 export default {
   all,
