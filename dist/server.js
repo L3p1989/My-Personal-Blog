@@ -94,7 +94,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nexports.default = {\r\n    mysql: {\r\n        host: \"localhost\",\r\n        port: 3306,\r\n        user: \"blogs\",\r\n        database: \"blogs\",\r\n        password: \"myblog\",\r\n        multipleStatements: true\r\n    }\r\n};\r\n\n\n//# sourceURL=webpack:///./src/server/config/development.ts?");
+eval("\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nexports.default = {\r\n    mysql: {\r\n        host: \"localhost\",\r\n        port: 3306,\r\n        user: \"blogs\",\r\n        database: \"blogs\",\r\n        password: \"myblog\",\r\n        multipleStatements: true\r\n    },\r\n    auth: {\r\n        secret: \"wolfodonnell\"\r\n    }\r\n};\r\n\n\n//# sourceURL=webpack:///./src/server/config/development.ts?");
 
 /***/ }),
 
