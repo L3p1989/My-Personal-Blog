@@ -70,4 +70,14 @@ router.get("/api/authors", async (req, res) => {
   }
 });
 
+router.post("/api/authors", async (req, res) => {
+  try {
+    let authors = await DB.authors.insert(req.body);
+    res.json(authors);
+  } catch (e) {
+    console.log(e);
+    res.sendStatus(500);
+  }
+});
+
 export default router;
