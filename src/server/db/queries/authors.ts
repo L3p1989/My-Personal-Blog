@@ -8,8 +8,12 @@ const findOneByEmail = async (email: string) =>
 const findOneByID = async (id: number) =>
   Query(`select * from authors where id = '${id}' limit 1`);
 
+const insert = async (values: any) =>
+  Query(`insert into Authors set ?`, values);
+
 export default {
   all,
   findOneByEmail,
-  findOneByID
+  findOneByID,
+  insert
 };
