@@ -3,7 +3,7 @@ import * as express from "express";
 import * as passport from "passport";
 
 import "./middleware/localstrategy";
-import "./middleware/bearstrategy";
+import "./middleware/bearerstrategy";
 
 import routes from "./routes";
 
