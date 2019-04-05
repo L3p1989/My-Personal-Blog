@@ -23,7 +23,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", isAdmin, async (req, res) => {
   try {
     let blog = await DB.blogs.one(req.params.id);
     res.json(blog);
