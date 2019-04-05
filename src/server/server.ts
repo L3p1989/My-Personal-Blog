@@ -5,7 +5,7 @@ import * as passport from "passport";
 import "./middleware/localstrategy";
 import "./middleware/bearstrategy";
 
-import apiRouter from "./routes";
+import routes from "./routes/api";
 
 import * as favIcon from "serve-favicon";
 
@@ -18,7 +18,8 @@ let p = path.join(__dirname, "../public");
 app.use(express.static(p));
 app.use(express.json());
 app.use(passport.initialize());
-app.use(apiRouter);
+
+app.use(routes);
 
 app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname, "../public/index.html"));
