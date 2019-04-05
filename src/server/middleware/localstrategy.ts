@@ -15,6 +15,8 @@ passport.use(
         let [user]: any = await DB.authors.findOneByEmail(email);
         if (user && ComparePassword(password, user.password)) {
           done(null, user);
+        } else {
+          done(null, false);
         }
       } catch (e) {
         done(e);
