@@ -23,7 +23,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id", isAdmin, async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     let blog = await DB.blogs.one(req.params.id);
     res.json(blog);
@@ -33,7 +33,7 @@ router.get("/:id", isAdmin, async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", isAdmin, async (req, res) => {
   try {
     let blogs = await DB.blogs.insert(req.body);
     res.json(blogs);
@@ -43,7 +43,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", isAdmin, async (req, res) => {
   try {
     let blog = await DB.blogs.deleteBlog(req.params.id);
     res.json(blog);
@@ -53,7 +53,7 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", isAdmin, async (req, res) => {
   let id = req.params.id;
   let blog = req.body;
   try {
