@@ -13,21 +13,56 @@ const isAdmin: RequestHandler = (req, res, next) => {
   }
 };
 
-router.get("/blogs", async (req, res, next) => {
+router.get("/", async (req, res) => {
   try {
     let blogs = await DB.blogs.all();
-    res.send(blogs);
+    res.json(blogs);
   } catch (e) {
     console.log(e);
     res.sendStatus(500);
   }
 });
 
-router.get("/blogs/:id", isAdmin, async (req, res, next) => {
-  let id = req.params.id;
+router.get("/:id", async (req, res) => {
   try {
-    let blog = await DB.blogs.one(id);
-    res.send(blog);
+    let blog = await DB.blogs.one(req.params.id);
+    res.json(blog);
+  } catch (e) {
+    console.log(e);
+    res.sendStatus(500);
+  }
+});
+
+router.post("/", async (req, res) => {
+  try {
+    let blogs = await DB.blogs.insert(req.body);
+    res.json(blogs);
+  } catch (e) {
+    console.log(e);
+    res.sendStatus(500);
+  }
+});
+
+router.delete("/:id", async (req, res) => {
+  try {
+    let blog = await DB.blogs.deleteBlog(req.params.id);
+    res.json(blog);
+  } catch (e) {
+    console.log(e);
+    res.sendStatus(500);
+  }
+});
+
+router.put("/:id", async (req, res) => {
+  let id = req.params.id;
+  let blog = req.body;
+  try {
+    let placeholderColumns = Object.keys(blog).map(key => [
+      `${key}="${blog[key]}"`
+    ]);
+    let updateBlog = placeholderColumns.join(", ");
+    await DB.blogs.editBlog(updateBlog, id);
+    res.json("edit success!");
   } catch (e) {
     console.log(e);
     res.sendStatus(500);
