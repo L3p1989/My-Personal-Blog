@@ -9,7 +9,7 @@ export default class BlogsPage extends React.Component<
     super(props);
 
     this.state = {
-      authorid: 1,
+      authorid: 7,
       title: "",
       content: "",
       authors: []
