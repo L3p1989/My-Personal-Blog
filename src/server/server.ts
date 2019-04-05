@@ -5,7 +5,7 @@ import * as passport from "passport";
 import "./middleware/localstrategy";
 import "./middleware/bearstrategy";
 
-import routes from "./routes/api";
+import routes from "./routes";
 
 import * as favIcon from "serve-favicon";
 
