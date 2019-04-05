@@ -9,7 +9,7 @@ const findOneByID = async (id: number) =>
   Query(`select * from authors where id = '${id}' limit 1`);
 
 const insert = async (values: any) =>
-  Query(`insert into Authors set ?`, values);
+  Query(`insert into authors set ?`, values);
 
 export default {
   all,
