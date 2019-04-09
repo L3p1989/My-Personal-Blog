@@ -80,7 +80,6 @@ export default class BlogPage extends React.Component<IBlogProps, IBlogState> {
       };
     });
     this.setState({ authors });
-    console.log(this.state.authors);
     this.setState({ blog });
     this.setState({ title: blog.title, content: blog.content });
   }
@@ -132,7 +131,7 @@ export default class BlogPage extends React.Component<IBlogProps, IBlogState> {
                   />
                 </div>
                 <Link
-                  to={`/api/blogs`}
+                  to={`/api/blogs/${this.props.match.params.id}`}
                   className="btn my-btn"
                   onClick={() => this.handleEdit()}
                 >
@@ -156,12 +155,13 @@ export default class BlogPage extends React.Component<IBlogProps, IBlogState> {
               className="delete-confirm background"
             >
               <p>Are you sure you want to delete this blog?</p>
-              <button
+              <Link
+                to="/blogs"
                 className="btn my-btn"
                 onClick={() => this.handleDelete()}
               >
                 Yes
-              </button>
+              </Link>
               <button className="btn my-btn" onClick={this.toggleDelete}>
                 No
               </button>
