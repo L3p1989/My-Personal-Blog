@@ -19,7 +19,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
 
   render() {
     return (
-      <>
+      <div className="background">
         <Router>
           <>
             <NavBar />
@@ -32,7 +32,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
             </Switch>
           </>
         </Router>
-      </>
+      </div>
     );
   }
 }
