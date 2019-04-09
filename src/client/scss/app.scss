@@ -26,6 +26,13 @@
   width: 100%;
 }
 
+.edit-container {
+  position: fixed;
+  top: 20%;
+  left: 25%;
+  width: 50%;
+}
+
 .navbar {
   color: #ffffff;
   width: 960px;
@@ -142,4 +149,8 @@ nav > ul {
   font-size: x-large;
   font-weight: bold;
   color: red;
+  position: fixed;
+  top: 20%;
+  left: 25%;
+  width: 50%;
 }
