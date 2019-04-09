@@ -1,6 +1,5 @@
 import * as React from "react";
 import { BrowserRouter as Router, Link } from "react-router-dom";
-import { object } from "prop-types";
 
 export default class AddUser extends React.Component<
   IAddUserProps,
@@ -17,6 +16,22 @@ export default class AddUser extends React.Component<
     };
   }
 
+  async handleAdd() {
+    event.preventDefault();
+    let newUser = {
+      name: this.state.name,
+      email: this.state.email,
+      password: this.state.password
+    };
+    await fetch("/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newUser)
+    });
+  }
+
   async componentDidMount() {
     let a = await fetch("/api/authors");
     let users = await a.json();
@@ -25,7 +40,6 @@ export default class AddUser extends React.Component<
       authors.push(author.email);
     });
     this.setState({ authors });
-    console.log(this.state.authors);
   }
 
   render() {
@@ -83,7 +97,13 @@ export default class AddUser extends React.Component<
               }}
             />
           </div>
-          <button className="btn my-btn">Submit</button>
+          <Link
+            to="/login"
+            className="btn my-btn"
+            onClick={() => this.handleAdd()}
+          >
+            Submit
+          </Link>
           <Link to="/" className="btn my-btn">
             Cancel
           </Link>
