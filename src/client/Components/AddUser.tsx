@@ -78,6 +78,10 @@ export default class AddUser extends React.Component<
               }}
             />
           </div>
+          <button className="btn my-btn">Submit</button>
+          <Link to="/" className="btn my-btn">
+            Cancel
+          </Link>
         </form>
       </div>
     );
