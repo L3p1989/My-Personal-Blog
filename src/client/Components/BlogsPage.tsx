@@ -18,7 +18,11 @@ export default class BlogsPage extends React.Component<
     let r = await fetch("/api/blogs");
     let blogs = await r.json();
     let a = await fetch("/api/authors");
-    let authors = await a.json();
+    let users = await a.json();
+    let authors = users.map(author => ({
+      id: author.id,
+      name: author.name
+    }));
     this.setState({ blogs, authors });
   }
 

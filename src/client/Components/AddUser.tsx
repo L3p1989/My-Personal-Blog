@@ -1,5 +1,6 @@
 import * as React from "react";
 import { BrowserRouter as Router, Link } from "react-router-dom";
+import { object } from "prop-types";
 
 export default class AddUser extends React.Component<
   IAddUserProps,
@@ -18,9 +19,13 @@ export default class AddUser extends React.Component<
 
   async componentDidMount() {
     let a = await fetch("/api/authors");
-    let authors = await a.json();
+    let users = await a.json();
+    let authors = [];
+    users.forEach(author => {
+      authors.push(author.email);
+    });
     this.setState({ authors });
-    console.log(authors);
+    console.log(this.state.authors);
   }
 
   render() {
@@ -94,7 +99,5 @@ interface IAddUserState {
   name: string;
   email: string;
   password: string;
-  authors: Array<{
-    email: string;
-  }>;
+  authors: Array<[{ [index: number]: { email: string } }]>;
 }
