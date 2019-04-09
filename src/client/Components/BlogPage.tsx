@@ -1,6 +1,6 @@
 import * as React from "react";
 import { RouteComponentProps } from "react-router-dom";
-import EditForm from "./EditForm";
+import { BrowserRouter as Router, Link } from "react-router-dom";
 
 export default class BlogPage extends React.Component<IBlogProps, IBlogState> {
   constructor(props: IBlogProps) {
@@ -8,6 +8,10 @@ export default class BlogPage extends React.Component<IBlogProps, IBlogState> {
 
     this.state = {
       blog: {},
+      authorid: 7,
+      title: "",
+      content: "",
+      authors: [],
       isShowingEdit: false,
       isShowingDelete: false
     };
@@ -31,6 +35,23 @@ export default class BlogPage extends React.Component<IBlogProps, IBlogState> {
     }));
   }
 
+  async handleEdit() {
+    event.preventDefault();
+    let newBlog = {
+      authorid: this.state.authorid,
+      title: this.state.title,
+      content: this.state.content
+    };
+    await fetch(`/api/blogs/${this.props.match.params.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newBlog)
+    });
+    this.props.history.push(`/blogs`);
+  }
+
   async handleDelete() {
     event.preventDefault();
     await fetch(`/api/blogs/${this.props.match.params.id}`, {
@@ -46,7 +67,10 @@ export default class BlogPage extends React.Component<IBlogProps, IBlogState> {
   async componentDidMount() {
     let r = await fetch(`/api/blogs/${this.props.match.params.id}`);
     let blog = await r.json();
-    this.setState({ blog });
+    let a = await fetch("/api/authors");
+    let authors = await a.json();
+    this.setState({ blog, authors });
+    this.setState({ title: blog.title, content: blog.content });
   }
 
   render() {
@@ -67,10 +91,51 @@ export default class BlogPage extends React.Component<IBlogProps, IBlogState> {
               className="container edit-container background rounded"
               style={{ display: this.state.isShowingEdit ? "inherit" : "none" }}
             >
-              <EditForm
-                id={this.props.match.params.id}
-                history={this.props.history}
-              />
+              <form>
+                <div className="form-group">
+                  <label>Title</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="What's the title of your blog?"
+                    onChange={e =>
+                      this.setState({
+                        title: e.target.value
+                      })
+                    }
+                    value={this.state.title}
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Body</label>
+                  <textarea
+                    className="form-control"
+                    rows={5}
+                    onChange={e =>
+                      this.setState({
+                        content: e.target.value
+                      })
+                    }
+                    value={this.state.content}
+                  />
+                </div>
+                <Link
+                  to={`/api/blogs`}
+                  className="btn my-btn"
+                  onClick={() => this.handleEdit()}
+                >
+                  Save
+                </Link>
+                <button
+                  className="btn my-btn"
+                  onClick={e => {
+                    event.preventDefault();
+                    this.toggleEdit();
+                  }}
+                >
+                  Cancel
+                </button>
+              </form>
             </div>
             <div
               style={{
@@ -100,6 +165,13 @@ interface IBlogProps extends RouteComponentProps<{ id: string }> {}
 
 interface IBlogState {
   blog: any;
+  authorid: number;
+  title: string;
+  content: string;
+  authors: Array<{
+    id: string;
+    name: string;
+  }>;
   isShowingEdit: boolean;
   isShowingDelete: boolean;
 }
