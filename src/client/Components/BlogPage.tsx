@@ -57,17 +57,14 @@ export default class BlogPage extends React.Component<IBlogProps, IBlogState> {
           <h2 className="blog-title">{this.state.blog.title}</h2>
           <p className="blog-content">"{this.state.blog.content}"</p>
           <div>
-            <button className="btn my-btn edit-blog" onClick={this.toggleEdit}>
+            <button className="btn my-btn" onClick={this.toggleEdit}>
               Edit
             </button>
-            <button
-              className="btn my-btn delete-blog"
-              onClick={this.toggleDelete}
-            >
+            <button className="btn my-btn" onClick={this.toggleDelete}>
               Delete
             </button>
             <div
-              className="container edit-container rounded"
+              className="container edit-container background rounded"
               style={{ display: this.state.isShowingEdit ? "inherit" : "none" }}
             >
               <EditForm
@@ -79,19 +76,16 @@ export default class BlogPage extends React.Component<IBlogProps, IBlogState> {
               style={{
                 display: this.state.isShowingDelete ? "inherit" : "none"
               }}
-              className="delete-confirm"
+              className="delete-confirm background"
             >
               <p>Are you sure you want to delete this blog?</p>
               <button
-                className="btn my-btn save-btn"
+                className="btn my-btn"
                 onClick={() => this.handleDelete()}
               >
                 Yes
               </button>
-              <button
-                className="btn my-btn cancel-btn"
-                onClick={this.toggleDelete}
-              >
+              <button className="btn my-btn" onClick={this.toggleDelete}>
                 No
               </button>
             </div>
