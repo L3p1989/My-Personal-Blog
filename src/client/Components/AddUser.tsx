@@ -8,7 +8,18 @@ export default class AddUser extends React.Component<
   constructor(props: IAddUserProps) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      name: "",
+      email: "",
+      password: "",
+      authors: []
+    };
+  }
+
+  async componentDidMount() {
+    let a = await fetch("/api/authors");
+    let authors = await a.json();
+    this.setState({ authors });
   }
 
   render() {
@@ -55,4 +66,11 @@ export default class AddUser extends React.Component<
 
 interface IAddUserProps {}
 
-interface IAddUserState {}
+interface IAddUserState {
+  name: string;
+  email: string;
+  password: string;
+  authors: Array<{
+    email: string;
+  }>;
+}
