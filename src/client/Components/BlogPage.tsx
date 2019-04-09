@@ -8,7 +8,7 @@ export default class BlogPage extends React.Component<IBlogProps, IBlogState> {
 
     this.state = {
       blog: {},
-      authorid: 7,
+      authorid: 0,
       title: "",
       content: "",
       authors: [],
@@ -69,7 +69,10 @@ export default class BlogPage extends React.Component<IBlogProps, IBlogState> {
     let blog = await r.json();
     let a = await fetch("/api/authors");
     let authors = await a.json();
-    this.setState({ blog, authors });
+    authors.forEach(author => {
+      this.setState({ authors: author.name, authorid: author.id });
+    });
+    this.setState({ blog });
     this.setState({ title: blog.title, content: blog.content });
   }
 
