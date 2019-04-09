@@ -69,10 +69,7 @@ export default class BlogPage extends React.Component<IBlogProps, IBlogState> {
     let blog = await r.json();
     let a = await fetch("/api/authors");
     let authors = await a.json();
-    authors.forEach(author => {
-      this.setState({ authors: author.name, authorid: author.id });
-    });
-    this.setState({ blog });
+    this.setState({ blog, authors });
     this.setState({ title: blog.title, content: blog.content });
   }
 
