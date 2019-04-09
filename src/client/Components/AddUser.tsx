@@ -20,6 +20,7 @@ export default class AddUser extends React.Component<
     let a = await fetch("/api/authors");
     let authors = await a.json();
     this.setState({ authors });
+    console.log(authors);
   }
 
   render() {
@@ -32,6 +33,11 @@ export default class AddUser extends React.Component<
               type="text"
               className="form-control"
               placeholder="Your Name"
+              onChange={e =>
+                this.setState({
+                  name: e.target.value
+                })
+              }
             />
           </div>
           <div className="form-group">
@@ -40,6 +46,11 @@ export default class AddUser extends React.Component<
               type="text"
               className="form-control"
               placeholder="Your Email"
+              onChange={e =>
+                this.setState({
+                  email: e.target.value
+                })
+              }
             />
           </div>
           <div className="form-group">
@@ -48,6 +59,11 @@ export default class AddUser extends React.Component<
               type="text"
               className="form-control"
               placeholder="Make a password"
+              onChange={e =>
+                this.setState({
+                  password: e.target.value
+                })
+              }
             />
           </div>
           <div className="form-group">
@@ -56,6 +72,10 @@ export default class AddUser extends React.Component<
               type="text"
               className="form-control"
               placeholder="Confirm password"
+              onChange={e => {
+                if (e.target.value === this.state.password) {
+                }
+              }}
             />
           </div>
         </form>
