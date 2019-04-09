@@ -35,8 +35,8 @@ export default class AddUser extends React.Component<
   async componentDidMount() {
     let a = await fetch("/api/authors");
     let users = await a.json();
-    let authors = [];
-    users.forEach(author => {
+    let authors: any = [];
+    users.forEach((author: any) => {
       authors.push(author.email);
     });
     this.setState({ authors });
@@ -119,5 +119,5 @@ interface IAddUserState {
   name: string;
   email: string;
   password: string;
-  authors: Array<[{ [index: number]: { email: string } }]>;
+  authors: Array<{}>;
 }

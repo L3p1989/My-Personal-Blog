@@ -69,7 +69,7 @@ export default class BlogPage extends React.Component<IBlogProps, IBlogState> {
     let blog = await r.json();
     let a = await fetch("/api/authors");
     let users = await a.json();
-    let authors = users.map(author => {
+    let authors: any = users.map((author: any) => {
       if (blog.authorid === author.name) {
         let authorid = author.id;
         this.setState({ authorid });
