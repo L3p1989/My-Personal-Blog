@@ -12,6 +12,7 @@ export default class AddUser extends React.Component<
       name: "",
       email: "",
       password: "",
+      confirmPass: "",
       authors: []
     };
   }
@@ -92,8 +93,9 @@ export default class AddUser extends React.Component<
               className="form-control"
               placeholder="Confirm password"
               onChange={e => {
-                if (e.target.value === this.state.password) {
-                }
+                this.setState({
+                  confirmPass: e.target.value
+                });
               }}
             />
           </div>
@@ -119,5 +121,6 @@ interface IAddUserState {
   name: string;
   email: string;
   password: string;
+  confirmPass: string;
   authors: Array<{}>;
 }
