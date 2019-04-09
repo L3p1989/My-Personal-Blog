@@ -28,7 +28,7 @@ export default class BlogsPage extends React.Component<
         <div className="container blogs-container">
           <h1>Blogs</h1>
           <p>
-            <Link to="/new-blog" className="btn my-btn add-blog">
+            <Link to="/new-blog" className="btn my-btn">
               New Blog
             </Link>
           </p>
@@ -48,7 +48,7 @@ export default class BlogsPage extends React.Component<
                       );
                   })}
                   <p className="card-text">
-                    <Link to={`/blogs/${blog.id}`} className="blog-btn link">
+                    <Link to={`/blogs/${blog.id}`} className="link">
                       Title: {blog.title}
                     </Link>
                   </p>
