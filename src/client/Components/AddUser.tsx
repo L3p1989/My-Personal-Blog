@@ -13,7 +13,7 @@ export default class AddUser extends React.Component<
 
   render() {
     return (
-      <>
+      <div className="container">
         <form>
           <div className="form-group">
             <label>Name</label>
@@ -48,7 +48,7 @@ export default class AddUser extends React.Component<
             />
           </div>
         </form>
-      </>
+      </div>
     );
   }
 }
