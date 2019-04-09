@@ -12,7 +12,44 @@ export default class AddUser extends React.Component<
   }
 
   render() {
-    return <></>;
+    return (
+      <>
+        <form>
+          <div className="form-group">
+            <label>Name</label>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Your Name"
+            />
+          </div>
+          <div className="form-group">
+            <label>Email</label>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Your Email"
+            />
+          </div>
+          <div className="form-group">
+            <label>Password</label>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Make a password"
+            />
+          </div>
+          <div className="form-group">
+            <label>Confirm Password</label>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Confirm password"
+            />
+          </div>
+        </form>
+      </>
+    );
   }
 }
 
