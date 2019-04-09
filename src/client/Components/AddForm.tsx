@@ -70,10 +70,13 @@ export default class BlogsPage extends React.Component<
                 }
               />
             </div>
-            <button className="btn save-btn" onClick={() => this.handleAdd()}>
+            <button
+              className="btn my-btn save-btn"
+              onClick={() => this.handleAdd()}
+            >
               Hisss!
             </button>
-            <Link to="/blogs" className="btn cancel-btn">
+            <Link to="/blogs" className="btn my-btn cancel-btn">
               Cancel
             </Link>
           </form>

@@ -57,10 +57,13 @@ export default class BlogPage extends React.Component<IBlogProps, IBlogState> {
           <h2 className="blog-title">{this.state.blog.title}</h2>
           <p className="blog-content">"{this.state.blog.content}"</p>
           <div>
-            <button className="btn edit-blog" onClick={this.toggleEdit}>
+            <button className="btn my-btn edit-blog" onClick={this.toggleEdit}>
               Edit
             </button>
-            <button className="btn delete-blog" onClick={this.toggleDelete}>
+            <button
+              className="btn my-btn delete-blog"
+              onClick={this.toggleDelete}
+            >
               Delete
             </button>
             <div
@@ -80,12 +83,15 @@ export default class BlogPage extends React.Component<IBlogProps, IBlogState> {
             >
               <p>Are you sure you want to delete this blog?</p>
               <button
-                className="btn save-btn"
+                className="btn my-btn save-btn"
                 onClick={() => this.handleDelete()}
               >
                 Yes
               </button>
-              <button className="btn cancel-btn" onClick={this.toggleDelete}>
+              <button
+                className="btn my-btn cancel-btn"
+                onClick={this.toggleDelete}
+              >
                 No
               </button>
             </div>

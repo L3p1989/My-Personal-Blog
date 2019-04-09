@@ -76,7 +76,7 @@ export default class EditForm extends React.Component<
           </div>
           <Link
             to={`/api/blogs`}
-            className="btn save-btn"
+            className="btn my-btn save-btn"
             onClick={() => this.handleEdit()}
           >
             Save
