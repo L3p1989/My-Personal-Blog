@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as moment from "moment";
 import { BrowserRouter as Router, Link } from "react-router-dom";
 
 export default class BlogsPage extends React.Component<
@@ -51,6 +52,9 @@ export default class BlogsPage extends React.Component<
                         </h2>
                       );
                   })}
+                  <h5 className="small p-1 d-inline-block">
+                    {moment(blog._created).format("MMMM Do, YYYY")}
+                  </h5>
                   <p className="card-text">
                     <Link to={`/admin/blogs/${blog.id}`} className="link">
                       Title: {blog.title}
@@ -74,6 +78,7 @@ interface IBlogsPageState {
     authorid: string;
     title: string;
     content: string;
+    _created: Date;
   }>;
   authors: Array<{
     id: string;
