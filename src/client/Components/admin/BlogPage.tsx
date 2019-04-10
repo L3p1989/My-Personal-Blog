@@ -97,7 +97,9 @@ export default class BlogPage extends React.Component<IBlogProps, IBlogState> {
       <>
         <div className="container blog-container">
           <h1 className="author-name">{this.state.blog.authorid}</h1>
-          <h2 className="blog-title">{this.state.blog.title}</h2>
+          <h2 className="blog-title">
+            <u>{this.state.blog.title}</u>
+          </h2>
           <p className="blog-content">"{this.state.blog.content}"</p>
           <div>
             <button className="btn my-btn" onClick={this.toggleEdit}>
