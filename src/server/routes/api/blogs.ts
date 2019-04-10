@@ -36,7 +36,7 @@ router.get("/:id", async (req, res) => {
 router.post("/", isAdmin, async (req, res) => {
   try {
     let blogs = await DB.blogs.insert(req.body);
-    res.json(blogs);
+    res.json({ message: "blog submit success!" });
   } catch (e) {
     console.log(e);
     res.sendStatus(500);
@@ -46,7 +46,7 @@ router.post("/", isAdmin, async (req, res) => {
 router.delete("/:id", isAdmin, async (req, res) => {
   try {
     let blog = await DB.blogs.deleteBlog(req.params.id);
-    res.json(blog);
+    res.json({ message: "delete success!" });
   } catch (e) {
     console.log(e);
     res.sendStatus(500);
@@ -62,7 +62,7 @@ router.put("/:id", isAdmin, async (req, res) => {
     ]);
     let updateBlog = placeholderColumns.join(", ");
     await DB.blogs.editBlog(updateBlog, id);
-    res.json("edit success!");
+    res.json({ message: "edit success!" });
   } catch (e) {
     console.log(e);
     res.sendStatus(500);
