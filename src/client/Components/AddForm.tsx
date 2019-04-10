@@ -37,7 +37,7 @@ export default class BlogsPage extends React.Component<
         },
         body: JSON.stringify(newBlog)
       });
-      this.props.history.push("/blogs");
+      this.props.history.push("/admin/blogs");
     } catch (e) {
       throw e;
     }
@@ -77,7 +77,7 @@ export default class BlogsPage extends React.Component<
             <button className="btn my-btn" onClick={() => this.handleAdd()}>
               Hisss!
             </button>
-            <Link to="/blogs" className="btn my-btn">
+            <Link to="/admin/blogs" className="btn my-btn">
               Cancel
             </Link>
           </form>
