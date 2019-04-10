@@ -1,5 +1,5 @@
 import * as React from "react";
-import { json, SetAccessToken } from "../../utils/api";
+import { json, SetAccessToken, User } from "../../utils/api";
 import { RouteComponentProps } from "react-router-dom";
 
 export default class Login extends React.Component<ILoginProps, ILoginState> {
@@ -12,9 +12,17 @@ export default class Login extends React.Component<ILoginProps, ILoginState> {
     };
   }
 
+  componentDidMount() {
+    if (User.role === "admin") {
+      this.props.history.replace("/admin/blogs");
+    }
+    if (User.role === "guest") {
+      this.props.history.replace("/blogs");
+    }
+  }
+
   async loginSubmit() {
     event.preventDefault();
-
     try {
       let userLogin = {
         email: this.state.email,
