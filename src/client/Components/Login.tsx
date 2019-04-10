@@ -1,10 +1,23 @@
 import * as React from "react";
 
-export default class App extends React.Component<ILoginProps, ILoginState> {
+export default class Login extends React.Component<ILoginProps, ILoginState> {
   constructor(props: ILoginProps) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      email: "",
+      password: ""
+    };
+  }
+
+  async loginSubmit() {
+    event.preventDefault();
+    let userLogin = {
+      email: this.state.email,
+      password: this.state.email
+    };
+    try {
+    } catch (e) {}
   }
 
   render() {
@@ -18,6 +31,7 @@ export default class App extends React.Component<ILoginProps, ILoginState> {
                 type="text"
                 className="form-control"
                 placeholder="User email"
+                onChange={e => this.setState({ email: e.target.value })}
               />
             </div>
             <div className="form-group">
@@ -26,9 +40,12 @@ export default class App extends React.Component<ILoginProps, ILoginState> {
                 type="text"
                 className="form-control"
                 placeholder="User password"
+                onChange={e => this.setState({ password: e.target.value })}
               />
             </div>
-            <button className="btn my-btn">Submit</button>
+            <button className="btn my-btn" onClick={() => this.loginSubmit()}>
+              Submit
+            </button>
             <button className="btn my-btn">Cancel</button>
           </form>
         </div>
@@ -39,4 +56,7 @@ export default class App extends React.Component<ILoginProps, ILoginState> {
 
 interface ILoginProps {}
 
-interface ILoginState {}
+interface ILoginState {
+  email: string;
+  password: string;
+}
