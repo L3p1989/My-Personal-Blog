@@ -1,5 +1,7 @@
 import * as React from "react";
+import { json } from "../../utils/api";
 import { BrowserRouter as Router, Link } from "react-router-dom";
+import { RouteComponentProps } from "react-router-dom";
 
 export default class AddUser extends React.Component<
   IAddUserProps,
@@ -13,27 +15,48 @@ export default class AddUser extends React.Component<
       email: "",
       password: "",
       confirmPass: "",
-      authors: []
+      authors: [],
+      passwordMatch: true
     };
   }
 
+  private alert: JSX.Element = null;
+  private addingUser: boolean = false;
+
   async handleAdd() {
     event.preventDefault();
-    let newUser = {
-      name: this.state.name,
-      email: this.state.email,
-      password: this.state.password
-    };
-    try {
-      await fetch("/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(newUser)
-      });
-    } catch (e) {
-      throw e;
+    if (this.addingUser) return;
+    if (
+      this.state.password === this.state.confirmPass &&
+      this.state.password !== ""
+    ) {
+      this.setState({ passwordMatch: true });
+      let newUser = {
+        name: this.state.name,
+        email: this.state.email,
+        password: this.state.password
+      };
+      try {
+        this.addingUser = true;
+        let result = await json("/auth/register", "POST", newUser);
+        if (result) {
+          this.setState({
+            name: null,
+            email: null,
+            password: null,
+            confirmPass: null
+          });
+          this.props.history.replace("/login");
+        } else {
+          //error
+        }
+      } catch (e) {
+        throw e;
+      } finally {
+        this.addingUser = false;
+      }
+    } else {
+      this.setState({ passwordMatch: false });
     }
   }
 
@@ -48,6 +71,13 @@ export default class AddUser extends React.Component<
   }
 
   render() {
+    if (this.state.passwordMatch === false) {
+      this.alert = (
+        <div className="alert alert-danger p-1 m-3" role="alert">
+          Passwords do not match or are blank!
+        </div>
+      );
+    }
     return (
       <div className="container">
         <form>
@@ -103,23 +133,20 @@ export default class AddUser extends React.Component<
               }}
             />
           </div>
-          <Link
-            to="/login"
-            className="btn my-btn"
-            onClick={() => this.handleAdd()}
-          >
+          <button className="btn my-btn" onClick={() => this.handleAdd()}>
             Submit
-          </Link>
+          </button>
           <Link to="/" className="btn my-btn">
             Cancel
           </Link>
+          {this.alert}
         </form>
       </div>
     );
   }
 }
 
-interface IAddUserProps {}
+interface IAddUserProps extends RouteComponentProps<{}> {}
 
 interface IAddUserState {
   name: string;
@@ -127,4 +154,5 @@ interface IAddUserState {
   password: string;
   confirmPass: string;
   authors: Array<{}>;
+  passwordMatch: boolean;
 }
