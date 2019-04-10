@@ -28,11 +28,13 @@ export default class App extends React.Component<IAppProps, IAppState> {
             <NavBar />
             <Switch>
               <Route exact path="/" component={HomePage} />
+              <Route exact path="/admin/blogs" component={BlogsPage} />
+              <Route path="/admin/blogs/:id" component={BlogPage} />
               <Route exact path="/blogs" component={GuestBlogsPage} />
               <Route path="/blogs/:id" component={GuestBlogPage} />
-              <Route path="/new-blog" component={AddForm} />
-              <Route path="/register" component={AddUser} />
-              <Route path="/login" component={Login} />
+              <Route exact path="/new-blog" component={AddForm} />
+              <Route exact path="/register" component={AddUser} />
+              <Route exact path="/login" component={Login} />
             </Switch>
           </>
         </Router>
