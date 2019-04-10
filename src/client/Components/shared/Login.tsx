@@ -13,10 +13,10 @@ export default class Login extends React.Component<ILoginProps, ILoginState> {
   }
 
   componentDidMount() {
-    if (User.role === "admin") {
+    if (User && User.role === "admin") {
       this.props.history.replace("/admin/blogs");
     }
-    if (User.role === "guest") {
+    if (User && User.role === "guest") {
       this.props.history.replace("/blogs");
     }
   }
