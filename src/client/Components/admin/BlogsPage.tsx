@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as moment from "moment";
 import { BrowserRouter as Router, Link } from "react-router-dom";
+import { json } from "../../utils/api";
 
 export default class BlogsPage extends React.Component<
   IBlogsPageProps,
@@ -16,15 +17,17 @@ export default class BlogsPage extends React.Component<
   }
 
   async componentDidMount() {
-    let r = await fetch("/api/blogs");
-    let blogs = await r.json();
-    let a = await fetch("/api/authors");
-    let users = await a.json();
-    let authors: any = users.map((author: any) => ({
-      id: author.id,
-      name: author.name
-    }));
-    this.setState({ blogs, authors });
+    try {
+      let blogs = await json("/api/blogs");
+      let users = await json("/api/authors");
+      let authors: any = users.map((author: any) => ({
+        id: author.id,
+        name: author.name
+      }));
+      this.setState({ blogs, authors });
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   render() {
