@@ -1,4 +1,5 @@
 import * as React from "react";
+import { BrowserRouter as Router, Link } from "react-router-dom";
 
 export default class Login extends React.Component<ILoginProps, ILoginState> {
   constructor(props: ILoginProps) {
@@ -43,9 +44,13 @@ export default class Login extends React.Component<ILoginProps, ILoginState> {
                 onChange={e => this.setState({ password: e.target.value })}
               />
             </div>
-            <button className="btn my-btn" onClick={() => this.loginSubmit()}>
+            <Link
+              to="/admin/blogs"
+              className="btn my-btn"
+              onClick={() => this.loginSubmit()}
+            >
               Submit
-            </button>
+            </Link>
             <button className="btn my-btn">Cancel</button>
           </form>
         </div>
