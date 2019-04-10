@@ -28,7 +28,9 @@ export default class AddUser extends React.Component<
     if (this.addingUser) return;
     if (
       this.state.password === this.state.confirmPass &&
-      this.state.password !== ""
+      this.state.password !== "" &&
+      this.state.name !== "" &&
+      this.state.email !== ""
     ) {
       this.setState({ passwordMatch: true });
       let newUser = {
@@ -74,7 +76,7 @@ export default class AddUser extends React.Component<
     if (this.state.passwordMatch === false) {
       this.alert = (
         <div className="alert alert-danger p-1 m-3" role="alert">
-          Passwords do not match or are blank!
+          A field was left blank or your passwords do not match!
         </div>
       );
     }
