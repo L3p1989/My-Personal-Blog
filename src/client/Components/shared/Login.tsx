@@ -8,9 +8,13 @@ export default class Login extends React.Component<ILoginProps, ILoginState> {
 
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      loginStatus: false
     };
   }
+
+  private alert: JSX.Element = null;
+  private loggingIn: boolean = false;
 
   componentDidMount() {
     if (User && User.role === "admin") {
@@ -23,7 +27,12 @@ export default class Login extends React.Component<ILoginProps, ILoginState> {
 
   async loginSubmit() {
     event.preventDefault();
+
+    this.setState({ loginStatus: false });
+    if (this.loggingIn) return;
+
     try {
+      this.loggingIn = true;
       let userLogin = {
         email: this.state.email,
         password: this.state.password
@@ -40,14 +49,25 @@ export default class Login extends React.Component<ILoginProps, ILoginState> {
           this.props.history.push("/blogs");
         }
       } else {
-        //checking a login status
+        this.setState({ loginStatus: true });
       }
     } catch (e) {
+      this.setState({ loginStatus: true });
       throw e;
+    } finally {
+      this.loggingIn = false;
     }
   }
 
   render() {
+    if (this.state.loginStatus) {
+      this.alert = (
+        <div className="alert alert-danger p-1 m-3" role="alert">
+          Invalid login!
+        </div>
+      );
+    }
+
     return (
       <>
         <div className="container">
@@ -74,6 +94,7 @@ export default class Login extends React.Component<ILoginProps, ILoginState> {
               Submit
             </button>
             <button className="btn my-btn">Cancel</button>
+            {this.alert}
           </form>
         </div>
       </>
@@ -86,4 +107,5 @@ interface ILoginProps extends RouteComponentProps<{}> {}
 interface ILoginState {
   email: string;
   password: string;
+  loginStatus: boolean;
 }
