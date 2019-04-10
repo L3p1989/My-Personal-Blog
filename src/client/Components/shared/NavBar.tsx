@@ -27,6 +27,14 @@ class NavBar extends Component {
                   <Link to="/login" className="link">
                     Sign in
                   </Link>
+                  <button
+                    className="link"
+                    onClick={() => {
+                      return localStorage.clear();
+                    }}
+                  >
+                    Sign out
+                  </button>
                 </li>
               </ul>
             </nav>
