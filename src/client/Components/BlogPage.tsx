@@ -50,7 +50,7 @@ export default class BlogPage extends React.Component<IBlogProps, IBlogState> {
         },
         body: JSON.stringify(newBlog)
       });
-      this.props.history.push(`/blogs`);
+      this.props.history.push(`/admin/blogs`);
     } catch (e) {
       throw e;
     }
@@ -66,7 +66,7 @@ export default class BlogPage extends React.Component<IBlogProps, IBlogState> {
         },
         body: JSON.stringify(this.state.blog)
       });
-      this.props.history.push("/blogs");
+      this.props.history.push("/admin/blogs");
     } catch (e) {
       throw e;
     }
@@ -164,7 +164,7 @@ export default class BlogPage extends React.Component<IBlogProps, IBlogState> {
             >
               <p>Are you sure you want to delete this blog?</p>
               <Link
-                to="/blogs"
+                to="/admin/blogs"
                 className="btn my-btn"
                 onClick={() => this.handleDelete()}
               >
