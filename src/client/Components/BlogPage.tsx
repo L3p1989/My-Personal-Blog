@@ -42,26 +42,34 @@ export default class BlogPage extends React.Component<IBlogProps, IBlogState> {
       title: this.state.title,
       content: this.state.content
     };
-    await fetch(`/api/blogs/${this.props.match.params.id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(newBlog)
-    });
-    this.props.history.push(`/blogs`);
+    try {
+      await fetch(`/api/blogs/${this.props.match.params.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newBlog)
+      });
+      this.props.history.push(`/blogs`);
+    } catch (e) {
+      throw e;
+    }
   }
 
   async handleDelete() {
     event.preventDefault();
-    await fetch(`/api/blogs/${this.props.match.params.id}`, {
-      method: "Delete",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(this.state.blog)
-    });
-    this.props.history.push("/blogs");
+    try {
+      await fetch(`/api/blogs/${this.props.match.params.id}`, {
+        method: "Delete",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(this.state.blog)
+      });
+      this.props.history.push("/blogs");
+    } catch (e) {
+      throw e;
+    }
   }
 
   async componentDidMount() {

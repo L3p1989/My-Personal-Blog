@@ -29,14 +29,18 @@ export default class BlogsPage extends React.Component<
       title: this.state.title,
       content: this.state.content
     };
-    await fetch("api/blogs", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(newBlog)
-    });
-    this.props.history.push("/blogs");
+    try {
+      await fetch("api/blogs", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newBlog)
+      });
+      this.props.history.push("/blogs");
+    } catch (e) {
+      throw e;
+    }
   }
 
   render() {

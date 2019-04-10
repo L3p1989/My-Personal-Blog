@@ -24,13 +24,17 @@ export default class AddUser extends React.Component<
       email: this.state.email,
       password: this.state.password
     };
-    await fetch("/auth/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(newUser)
-    });
+    try {
+      await fetch("/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newUser)
+      });
+    } catch (e) {
+      throw e;
+    }
   }
 
   async componentDidMount() {
