@@ -10,6 +10,8 @@ import BlogPage from "./BlogPage";
 import AddForm from "./AddForm";
 import AddUser from "./AddUser";
 import Login from "./Login";
+import GuestBlogsPage from "./GuestBlogs";
+import GuestBlogPage from "./GuestBlogPage";
 
 export default class App extends React.Component<IAppProps, IAppState> {
   constructor(props: IAppProps) {
@@ -26,8 +28,8 @@ export default class App extends React.Component<IAppProps, IAppState> {
             <NavBar />
             <Switch>
               <Route exact path="/" component={HomePage} />
-              <Route exact path="/blogs" component={BlogsPage} />
-              <Route path="/blogs/:id" component={BlogPage} />
+              <Route exact path="/blogs" component={GuestBlogsPage} />
+              <Route path="/blogs/:id" component={GuestBlogPage} />
               <Route path="/new-blog" component={AddForm} />
               <Route path="/register" component={AddUser} />
               <Route path="/login" component={Login} />
