@@ -1,7 +1,6 @@
 import * as React from "react";
 import { RouteComponentProps } from "react-router-dom";
-import { BrowserRouter as Router, Link } from "react-router-dom";
-import { json } from "../../utils/api";
+import { json, User } from "../../utils/api";
 
 export default class BlogPage extends React.Component<IBlogProps, IBlogState> {
   constructor(props: IBlogProps) {
@@ -44,14 +43,12 @@ export default class BlogPage extends React.Component<IBlogProps, IBlogState> {
       content: this.state.content
     };
     try {
-      await fetch(`/api/blogs/${this.props.match.params.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(newBlog)
-      });
-      this.props.history.push(`/admin/blogs`);
+      let result = json(
+        `/api/blogs/${this.props.match.params.id}`,
+        "PUT",
+        newBlog
+      );
+      this.props.history.replace(`/admin/blogs`);
     } catch (e) {
       throw e;
     }
@@ -60,38 +57,40 @@ export default class BlogPage extends React.Component<IBlogProps, IBlogState> {
   async handleDelete() {
     event.preventDefault();
     try {
-      await fetch(`/api/blogs/${this.props.match.params.id}`, {
-        method: "Delete",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(this.state.blog)
-      });
-      this.props.history.push("/admin/blogs");
+      let result = json(
+        `/api/blogs/${this.props.match.params.id}`,
+        "DELETE",
+        this.state.blog
+      );
+      this.props.history.replace(`/admin/blogs`);
     } catch (e) {
       throw e;
     }
   }
 
   async componentDidMount() {
-    try {
-      let blog = await json(`/api/blogs/${this.props.match.params.id}`);
-      let users = await json("/api/authors");
-      let authors: any = users.map((author: any) => {
-        if (blog.authorid === author.name) {
-          let authorid = author.id;
-          this.setState({ authorid });
-        }
-        return {
-          id: author.id,
-          name: author.name
-        };
-      });
-      this.setState({ authors });
-      this.setState({ blog });
-      this.setState({ title: blog.title, content: blog.content });
-    } catch (e) {
-      console.log(e);
+    if (!User || User.userid === null || User.role !== "admin") {
+      this.props.history.replace("/login");
+    } else {
+      try {
+        let blog = await json(`/api/blogs/${this.props.match.params.id}`);
+        let users = await json("/api/authors");
+        let authors: any = users.map((author: any) => {
+          if (blog.authorid === author.name) {
+            let authorid = author.id;
+            this.setState({ authorid });
+          }
+          return {
+            id: author.id,
+            name: author.name
+          };
+        });
+        this.setState({ authors });
+        this.setState({ blog });
+        this.setState({ title: blog.title, content: blog.content });
+      } catch (e) {
+        console.log(e);
+      }
     }
   }
 
@@ -143,13 +142,12 @@ export default class BlogPage extends React.Component<IBlogProps, IBlogState> {
                     value={this.state.content}
                   />
                 </div>
-                <Link
-                  to={`/api/blogs/${this.props.match.params.id}`}
+                <button
                   className="btn my-btn"
                   onClick={() => this.handleEdit()}
                 >
                   Save
-                </Link>
+                </button>
                 <button
                   className="btn my-btn"
                   onClick={e => {
@@ -168,13 +166,12 @@ export default class BlogPage extends React.Component<IBlogProps, IBlogState> {
               className="delete-confirm background"
             >
               <p>Are you sure you want to delete this blog?</p>
-              <Link
-                to="/admin/blogs"
+              <button
                 className="btn my-btn"
                 onClick={() => this.handleDelete()}
               >
                 Yes
-              </Link>
+              </button>
               <button className="btn my-btn" onClick={this.toggleDelete}>
                 No
               </button>

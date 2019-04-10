@@ -1,7 +1,8 @@
 import * as React from "react";
 import * as moment from "moment";
+import { RouteComponentProps } from "react-router-dom";
 import { BrowserRouter as Router, Link } from "react-router-dom";
-import { json } from "../../utils/api";
+import { json, User } from "../../utils/api";
 
 export default class BlogsPage extends React.Component<
   IBlogsPageProps,
@@ -17,16 +18,20 @@ export default class BlogsPage extends React.Component<
   }
 
   async componentDidMount() {
-    try {
-      let blogs = await json("/api/blogs");
-      let users = await json("/api/authors");
-      let authors: any = users.map((author: any) => ({
-        id: author.id,
-        name: author.name
-      }));
-      this.setState({ blogs, authors });
-    } catch (e) {
-      console.log(e);
+    if (!User || User.userid === null || User.role !== "admin") {
+      this.props.history.replace("/login");
+    } else {
+      try {
+        let blogs = await json("/api/blogs");
+        let users = await json("/api/authors");
+        let authors: any = users.map((author: any) => ({
+          id: author.id,
+          name: author.name
+        }));
+        this.setState({ blogs, authors });
+      } catch (e) {
+        console.log(e);
+      }
     }
   }
 
@@ -73,7 +78,7 @@ export default class BlogsPage extends React.Component<
   }
 }
 
-interface IBlogsPageProps {}
+interface IBlogsPageProps extends RouteComponentProps<{}> {}
 
 interface IBlogsPageState {
   blogs: Array<{

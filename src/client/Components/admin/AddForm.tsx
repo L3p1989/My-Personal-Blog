@@ -1,15 +1,17 @@
 import * as React from "react";
+import { json, User } from "../../utils/api";
 import { BrowserRouter as Router, Link } from "react-router-dom";
+import { RouteComponentProps } from "react-router-dom";
 
-export default class BlogsPage extends React.Component<
-  IBlogsPageProps,
-  IBlogsPageState
+export default class AddForm extends React.Component<
+  IAddFormProps,
+  IAddFormState
 > {
-  constructor(props: IBlogsPageProps) {
+  constructor(props: IAddFormProps) {
     super(props);
 
     this.state = {
-      authorid: 7,
+      authorid: 0,
       title: "",
       content: "",
       authors: []
@@ -17,27 +19,28 @@ export default class BlogsPage extends React.Component<
   }
 
   async componentDidMount() {
-    let a = await fetch("/api/authors");
-    let authors = await a.json();
-    this.setState({ authors });
+    if (!User || User.userid === null || User.role !== "admin") {
+      this.props.history.replace("/login");
+    } else {
+      try {
+        let authors = await json("/api/authors");
+        this.setState({ authors });
+      } catch (e) {
+        console.log(e);
+      }
+    }
   }
 
   async handleAdd() {
     event.preventDefault();
-    let newBlog = {
-      authorid: this.state.authorid,
+    let newBlog: { authorid: number; title: string; content: string } = {
+      authorid: User.userid,
       title: this.state.title,
       content: this.state.content
     };
     try {
-      await fetch("api/blogs", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(newBlog)
-      });
-      this.props.history.push("/admin/blogs");
+      let result = await json("api/blogs", "POST", newBlog);
+      this.props.history.replace("/admin/blogs");
     } catch (e) {
       throw e;
     }
@@ -87,11 +90,11 @@ export default class BlogsPage extends React.Component<
   }
 }
 
-interface IBlogsPageProps {
+interface IAddFormProps extends RouteComponentProps<{}> {
   history: any;
 }
 
-interface IBlogsPageState {
+interface IAddFormState {
   authorid: number;
   title: string;
   content: string;
