@@ -2,6 +2,13 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Link } from "react-router-dom";
 
 class NavBar extends Component {
+  signOut() {
+    localStorage.clear();
+    setTimeout(() => {
+      location.reload();
+    }, 100);
+  }
+
   render() {
     return (
       <div className="nav-container">
@@ -27,14 +34,9 @@ class NavBar extends Component {
                   <Link to="/login" className="link">
                     Sign in
                   </Link>
-                  <button
-                    className="link"
-                    onClick={() => {
-                      return localStorage.clear();
-                    }}
-                  >
+                  <Link to="/" className="link" onClick={() => this.signOut()}>
                     Sign out
-                  </button>
+                  </Link>
                 </li>
               </ul>
             </nav>
