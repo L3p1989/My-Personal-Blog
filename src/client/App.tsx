@@ -1,17 +1,17 @@
 import * as React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import "../scss/app";
+import "./scss/app";
 
-import NavBar from "./NavBar";
-import HomePage from "./HomePage";
-import BlogsPage from "./BlogsPage";
-import BlogPage from "./BlogPage";
-import AddForm from "./AddForm";
-import AddUser from "./AddUser";
-import Login from "./Login";
-import GuestBlogsPage from "./GuestBlogs";
-import GuestBlogPage from "./GuestBlogPage";
+import NavBar from "./Components/shared/NavBar";
+import HomePage from "./Components/public/HomePage";
+import BlogsPage from "./Components/admin/BlogsPage";
+import BlogPage from "./Components/admin/BlogPage";
+import AddForm from "./Components/admin/AddForm";
+import AddUser from "./Components/public/AddUser";
+import Login from "./Components/admin/Login";
+import GuestBlogsPage from "./Components/public/GuestBlogs";
+import GuestBlogPage from "./Components/public/GuestBlogPage";
 
 export default class App extends React.Component<IAppProps, IAppState> {
   constructor(props: IAppProps) {
