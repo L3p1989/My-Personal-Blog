@@ -17,7 +17,7 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     let authors = await DB.authors.insert(req.body);
-    res.json(authors);
+    res.json({ message: "New guest successfully created!" });
   } catch (e) {
     console.log(e);
     res.sendStatus(500);
