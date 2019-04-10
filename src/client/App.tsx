@@ -9,7 +9,7 @@ import BlogsPage from "./Components/admin/BlogsPage";
 import BlogPage from "./Components/admin/BlogPage";
 import AddForm from "./Components/admin/AddForm";
 import AddUser from "./Components/public/AddUser";
-import Login from "./Components/admin/Login";
+import Login from "./Components/shared/Login";
 import GuestBlogsPage from "./Components/public/GuestBlogs";
 import GuestBlogPage from "./Components/public/GuestBlogPage";
 

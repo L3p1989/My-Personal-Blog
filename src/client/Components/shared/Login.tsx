@@ -1,5 +1,6 @@
 import * as React from "react";
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import { json, SetAccessToken } from "../../utils/api";
+import { RouteComponentProps } from "react-router-dom";
 
 export default class Login extends React.Component<ILoginProps, ILoginState> {
   constructor(props: ILoginProps) {
@@ -13,12 +14,29 @@ export default class Login extends React.Component<ILoginProps, ILoginState> {
 
   async loginSubmit() {
     event.preventDefault();
-    let userLogin = {
-      email: this.state.email,
-      password: this.state.email
-    };
+
     try {
-    } catch (e) {}
+      let userLogin = {
+        email: this.state.email,
+        password: this.state.password
+      };
+      let result = await json("/auth/login", "POST", userLogin);
+      if (result) {
+        SetAccessToken(result.token, {
+          userid: result.userid,
+          role: result.role
+        });
+        if (result.role === "admin") {
+          this.props.history.push("/admin/blogs");
+        } else {
+          this.props.history.push("/blogs");
+        }
+      } else {
+        //checking a login status
+      }
+    } catch (e) {
+      throw e;
+    }
   }
 
   render() {
@@ -44,13 +62,9 @@ export default class Login extends React.Component<ILoginProps, ILoginState> {
                 onChange={e => this.setState({ password: e.target.value })}
               />
             </div>
-            <Link
-              to="/admin/blogs"
-              className="btn my-btn"
-              onClick={() => this.loginSubmit()}
-            >
+            <button className="btn my-btn" onClick={() => this.loginSubmit()}>
               Submit
-            </Link>
+            </button>
             <button className="btn my-btn">Cancel</button>
           </form>
         </div>
@@ -59,7 +73,7 @@ export default class Login extends React.Component<ILoginProps, ILoginState> {
   }
 }
 
-interface ILoginProps {}
+interface ILoginProps extends RouteComponentProps<{}> {}
 
 interface ILoginState {
   email: string;
