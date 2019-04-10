@@ -52,7 +52,7 @@ export default class BlogsPage extends React.Component<
                       );
                   })}
                   <p className="card-text">
-                    <Link to={`/blogs/${blog.id}`} className="link">
+                    <Link to={`/admin/blogs/${blog.id}`} className="link">
                       Title: {blog.title}
                     </Link>
                   </p>
