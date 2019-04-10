@@ -12,11 +12,15 @@ export default class AddForm extends React.Component<
 
     this.state = {
       authorid: 0,
-      title: "",
-      content: "",
-      authors: []
+      title: null,
+      content: null,
+      authors: [],
+      saveStatus: null
     };
   }
+
+  private alert: JSX.Element = null;
+  private saving: boolean = false;
 
   async componentDidMount() {
     if (!User || User.userid === null || User.role !== "admin") {
@@ -33,20 +37,48 @@ export default class AddForm extends React.Component<
 
   async handleAdd() {
     event.preventDefault();
+    if (this.saving) return;
     let newBlog: { authorid: number; title: string; content: string } = {
       authorid: User.userid,
       title: this.state.title,
       content: this.state.content
     };
     try {
+      this.saving = true;
       let result = await json("api/blogs", "POST", newBlog);
-      this.props.history.replace("/admin/blogs");
+      if (result) {
+        this.setState({
+          title: null,
+          content: null,
+          saveStatus: "success"
+        });
+        this.props.history.replace("/admin/blogs");
+      } else {
+        this.setState({ saveStatus: "error" });
+      }
     } catch (e) {
+      this.setState({ saveStatus: "error" });
       throw e;
+    } finally {
+      this.saving = false;
     }
   }
 
   render() {
+    if (this.state.saveStatus === "success") {
+      this.alert = (
+        <div className="alert alert-success p-1 m-3" role="alert">
+          Blog Added!
+        </div>
+      );
+    } else if (this.state.saveStatus === "error") {
+      this.alert = (
+        <div className="alert alert-danger p-1 m-3" role="alert">
+          There was an issue with your blog post!
+        </div>
+      );
+    }
+
     return (
       <>
         <div className="container addform-container">
@@ -83,6 +115,7 @@ export default class AddForm extends React.Component<
             <Link to="/admin/blogs" className="btn my-btn">
               Cancel
             </Link>
+            {this.alert}
           </form>
         </div>
       </>
@@ -102,4 +135,5 @@ interface IAddFormState {
     id: string;
     name: string;
   }>;
+  saveStatus: string;
 }
